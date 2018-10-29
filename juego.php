@@ -68,30 +68,57 @@ $listaPreguntas = array();
 function sigue(){
     numeroPregunta = calculaNumeroPregunta();
     $('#enunciado').text(listaPreguntas[numeroPregunta][1]);
-    $('#r1').text(listaPreguntas[numeroPregunta][2]).click(function(e){cambiaPregunta(e,1);});
-    $('#r2').text(listaPreguntas[numeroPregunta][3]).click(function(e){cambiaPregunta(e,2);});
-    $('#r3').text(listaPreguntas[numeroPregunta][4]).click(function(e){cambiaPregunta(e,3);});
-    $('#r4').text(listaPreguntas[numeroPregunta][5]).click(function(e){cambiaPregunta(e,4);});
+    $('#r1').text(listaPreguntas[numeroPregunta][2]).click(function(e){cambiaPregunta(1);});
+    $('#r2').text(listaPreguntas[numeroPregunta][3]).click(function(e){cambiaPregunta(2);});
+    $('#r3').text(listaPreguntas[numeroPregunta][4]).click(function(e){cambiaPregunta(3);});
+    $('#r4').text(listaPreguntas[numeroPregunta][5]).click(function(e){cambiaPregunta(4);});
  }
  
-function cambiaPregunta(e,num){
-     e.stopImmediatePropagation();
-     if (num == listaPreguntas[numeroPregunta][6]){
+function cambiaPregunta(numCorrecta){
+    var num = listaPreguntas[numeroPregunta][6];
+     if (numCorrecta == num){
         correcta();
      }
      else {
-        incorrecta();
-        //alert ("la correcta es "+listaPreguntas[numeroPregunta][6]+ "   "+ num)
-     }
+         incorrecta();
+    
  }
  
  function correcta(){
+    
+           $("#r1").removeClass().addClass("btn btn-block btn-success");
      
+ $("#r2").removeClass().addClass("btn btn-block btn-success");
+  $("#r3").removeClass().addClass("btn btn-block btn-success");
+   $("#r4").removeClass().addClass("btn btn-block btn-success");
+         sigue();    
+      
  }
  
- function incorrecta(){
+  function incorrecta(){
+         _vidas = _vidas - 1;
      
+     if(_vidas == 0){
+         $("#r" + numCorrecta).removeClass().addClass("btn btn-block btn-danger disabled");
+         muestraModalPrueba();
+          clearInterval(progreso);
+         
+        
+         
+     }
+     else if (_vidas >0){
+        
+
+    $("#r" + numCorrecta).removeClass().addClass("btn btn-block btn-danger disabled");
+    
+    
+	
+  
+     }
+      
+     }
  }
+ 
  
 function iniciaTemporizador(){
         //temporizador de la barra
@@ -100,8 +127,9 @@ function iniciaTemporizador(){
         var caja = $("#cajatiempo");
         var tiempo = $("#tiempo");
         if (tiempo.width() >= caja.width()){
-            clearInterval(progreso);
-            segundo = 0;
+            tiempo.width(tiempo.width() - caja.width())
+            sigue();
+            segundo = "";
         }
         else{
             tiempo.width(tiempo.width() + caja.width()/10);
@@ -118,7 +146,7 @@ function iniciaTemporizador(){
             tiempo.removeClass("bg-warning").addClass("bg-danger");
         }
         tiempo.text(segundo);
-    }, 3600);
+    }, 1200);
     
 } 
 

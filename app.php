@@ -30,6 +30,10 @@
     function muestraModalPrueba(){
         $('#modalPrueba').modal('show');
     }
+     function volver_modal(){
+        $('#principal').load('app.php');
+       
+    }
 
 </script>
 
@@ -44,10 +48,10 @@
         </button>
       </div>
       <div class="modal-body">
-        <p>Hola K Ase telekinesis o k ase</p>
+        <p>GAME OVER LOSER</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Salvar</button>
+          <button type="button" class="btn btn-primary"  onclick="volver_modal()" data-dismiss="modal" >Volver a elecion de tema</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
       </div>
     </div>
