@@ -29,7 +29,7 @@ $mysqli = conectaBBDD();
  $numUsuarios = $resultadoQuery -> num_rows;
  if ($numUsuarios > 0){
      $r = $resultadoQuery -> fetch_array();
-     if (password_verify($cajaPassword, $r['userPass'])){
+     if (password_verify($cajaPassword, $r['userPassword'])){
         //en la variable de sesión "nombreUsuario" guardo el nombre de usuario
         $_SESSION['nombreUsuario'] = $cajaNombre;
         //en la variable de sesión idUsuario guardo el id de usuario leido de la BBDD

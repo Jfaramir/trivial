@@ -22,7 +22,7 @@ $passwordEncriptada =  password_hash($cajaPassword, PASSWORD_BCRYPT);
 
 
 
- $resultadoQuery = $mysqli -> query("INSERT INTO usuarios (`idUsuario`, `nombreUsuario`, `userPass`)  VALUES (NULL, '$cajaNombre', '$passwordEncriptada') ");
+ $resultadoQuery = $mysqli -> query("INSERT INTO usuarios (`idUsuario`, `nombreUsuario`, `userPassword`)  VALUES (NULL, '$cajaNombre', '$passwordEncriptada') ");
  
 
  

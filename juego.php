@@ -47,6 +47,7 @@ $listaPreguntas = array();
     <p><a id="r2"  class="btn btn-block btn-success " ></a></p>
     <p><a id="r3"  class="btn btn-block btn-success " ></a></p>
     <p><a id="r4"  class="btn btn-block btn-success " ></a></p>
+    <p><a id="r5"  class="btn btn-block btn-success " ></a></p>
 </div>
 
 <script>
@@ -68,16 +69,18 @@ $listaPreguntas = array();
 function sigue(){
     numeroPregunta = calculaNumeroPregunta();
     $('#enunciado').text(listaPreguntas[numeroPregunta][1]);
-    $('#r1').text(listaPreguntas[numeroPregunta][2]).click(function(e){cambiaPregunta(1);});
-    $('#r2').text(listaPreguntas[numeroPregunta][3]).click(function(e){cambiaPregunta(2);});
-    $('#r3').text(listaPreguntas[numeroPregunta][4]).click(function(e){cambiaPregunta(3);});
-    $('#r4').text(listaPreguntas[numeroPregunta][5]).click(function(e){cambiaPregunta(4);});
+    $('#r1').text(listaPreguntas[numeroPregunta][2]).click(function(e){cambiaPregunta(1); e.stopInmediatePropagation();});
+    $('#r2').text(listaPreguntas[numeroPregunta][3]).click(function(e){cambiaPregunta(2); e.stopInmediatePropagation();});
+    $('#r3').text(listaPreguntas[numeroPregunta][4]).click(function(e){cambiaPregunta(3); e.stopInmediatePropagation();});
+    $('#r4').text(listaPreguntas[numeroPregunta][5]).click(function(e){cambiaPregunta(4); e.stopInmediatePropagation();});
+    $('#r5').text(listaPreguntas[numeroPregunta][6])
  }
  
 function cambiaPregunta(numCorrecta){
     var num = listaPreguntas[numeroPregunta][6];
-     if (numCorrecta == num){
+     if (numCorrecta == num ){
         correcta();
+        
      }
      else {
          incorrecta();
@@ -86,34 +89,29 @@ function cambiaPregunta(numCorrecta){
  
  function correcta(){
     
-           $("#r1").removeClass().addClass("btn btn-block btn-success");
-     
- $("#r2").removeClass().addClass("btn btn-block btn-success");
-  $("#r3").removeClass().addClass("btn btn-block btn-success");
-   $("#r4").removeClass().addClass("btn btn-block btn-success");
-         sigue();    
-      
- }
+        segundo = "";
+        $("#tiempo").width($('#tiempo').width()- $('#tiempo').width());
+        $("#r1").removeClass().addClass("btn btn-block btn-success").click(function (e){e.stopInmediatePropagation();});
+        $("#r2").removeClass().addClass("btn btn-block btn-success").click(function (e){e.stopInmediatePropagation();});
+        $("#r3").removeClass().addClass("btn btn-block btn-success").click(function (e){e.stopInmediatePropagation();});
+        $("#r4").removeClass().addClass("btn btn-block btn-success").click(function (e){e.stopInmediatePropagation();});
+        
+        
+        iniciaTemporizador();
+        
+        sigue();
+    }
  
   function incorrecta(){
          _vidas = _vidas - 1;
+      if (_vidas >0){
+            $("#r" + numCorrecta).removeClass().addClass("btn btn-block btn-danger disabled");
+     }
      
-     if(_vidas == 0){
+     else if(_vidas == 0){
          $("#r" + numCorrecta).removeClass().addClass("btn btn-block btn-danger disabled");
          muestraModalPrueba();
-          clearInterval(progreso);
-         
-        
-         
-     }
-     else if (_vidas >0){
-        
-
-    $("#r" + numCorrecta).removeClass().addClass("btn btn-block btn-danger disabled");
-    
-    
-	
-  
+          clearInterval(progreso);        
      }
       
      }
@@ -130,6 +128,8 @@ function iniciaTemporizador(){
             tiempo.width(tiempo.width() - caja.width())
             sigue();
             segundo = "";
+            _vidas = _vidas -1;
+            
         }
         else{
             tiempo.width(tiempo.width() + caja.width()/10);
@@ -146,7 +146,7 @@ function iniciaTemporizador(){
             tiempo.removeClass("bg-warning").addClass("bg-danger");
         }
         tiempo.text(segundo);
-    }, 1200);
+    }, 1000);
     
 } 
 
